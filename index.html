@@ -1,311 +1,124 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uz">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        * {
-            padding: 0;
-            margin: 0;
-        }
-        @media (max-width: 1024px) and (min-width: 390px) {
-        .main {
-            background-color: white;
-            display: flex;
-            flex-wrap: wrap;
-            width: 95vw;
-            justify-content: center;
-            gap: 10px;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zig'ir Osh</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+    body { background-color: #f9f9f9; padding: 16px; }
 
-        .box {
-            border-radius: 1rem;
-            background-color: lightgray;
-            width: 45%;
-            height: 300px;
-        }
+    .header { font-size: 20px; font-weight: bold; text-align: center; margin-bottom: 16px; color: #222; }
+    .tabs { display: flex; gap: 10px; overflow-x: auto; margin-bottom: 20px; }
+    .tab { padding: 8px 12px; background-color: #eaeaea; border-radius: 8px; white-space: nowrap; cursor: pointer; font-size: 14px; }
 
+    .menu-title { font-size: 18px; font-weight: 600; margin: 16px 0 8px; color: #333; }
 
-        .desc {
-            padding: 5px;
-        }
-        .image {
-            height: 50%;
-            width: 93%;
-            padding: 10px;
-        }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
 
-        img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-            border-radius: 1rem;
-
-        }
-
-        p {
-            padding: 5px;
-        }
-
-        button {
-            padding: 12px;
-            width: 99.9%;
-            font-size: 1.5rem;
-            border-radius: 1rem;
-            border: 1px solid transparent;
-        }
-        nav {
-            width: 100vw;
-            margin: 10px 27px;
-            overflow: auto;
-        }
-        ul{
-            display: flex;
-            gap: 3rem;
-        }
-
-        li {
-            list-style-type: none;
-        }
-
-        a {
-            text-decoration: none;
-            letter-spacing: 2px;
-            color: black;
-        }
-
-        .headers {
-            width: 100%;
-            margin: 10px 27px;
-        }
-
-        .desc-h1 {
-            font-size: 27px;
-        }
+    .card {
+      background-color: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      display: flex;
+      flex-direction: column;
     }
 
+    .card img { width: 100%; height: 120px; object-fit: cover; }
 
-    </style>
+    .card-body {
+      padding: 10px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .price { font-weight: bold; color: #000; margin-bottom: 4px; }
+    .desc { font-size: 13px; color: #555; margin-bottom: 8px; }
+
+    .add-btn {
+      padding: 6px;
+      background-color: #d0ffd8;
+      border-radius: 8px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .add-btn:hover {
+      background-color: #a5f3b1;
+    }
+
+    .footer { margin-top: 30px; text-align: center; font-size: 14px; color: #777; }
+  </style>
 </head>
-<body>
-    <div class="main">
-        <nav>
-            <ul>
-                <li><a href="#osh">Osh</a></li>
-                <li><a href="">Salat</a></li>
-                <li><a href="#ichimliklar">Ichimliklar</a></li>
-                <li><a href="">Non</a></li>
-            </ul>
-        </nav>
-        <h1 id="osh" class="headers">Osh</h1>
-        <div class="box">
-            <div class="image">
-                <img src="static\8f19e70f48fb2a35f72e4db624595e23.jpg" alt="">
-            </div>
-            <div class="desc">
-                <h1 class="desc-h1">40 500 UZS</h1>
-                <p> Zig'ir osh - 0.7</p>
-                <button> + </button>
 
-            </div>
+    <body>
+  <div class="header">PAYSHANBA ZIG'IR OSH</div>
 
-        </div>
+  <div class="tabs">
+    <div class="tab"><a href="#stol">Stollar</a> </div>
+    <div class="tab"><a href="#stul">Stullar</a></div>
 
-        <div class="box">
-            <div class="image">
-                <img src="static\8f19e70f48fb2a35f72e4db624595e23.jpg" alt="">
-            </div>
-            <div class="desc">
-                <h1 class="desc-h1">40 500 UZS</h1>
-                <p> Zig'ir osh - 0.7</p>
-                <button> + </button>
+  </div>
 
-            </div>
+  <div class="menu-title" id="stol">Stollar</div>
 
-        </div>
-        <div class="box">
-            <div class="image">
-                <img src="static\8f19e70f48fb2a35f72e4db624595e23.jpg" alt="">
-            </div>
-
-            <div class="desc">
-                <h1 class="desc-h1">40 500 UZS</h1>
-                <p> Zig'ir osh - 0.7</p>
-                <button> + </button>
-
-            </div>
-
-        </div>
-        <div class="box">
-            <div class="image">
-                <img src="static\8f19e70f48fb2a35f72e4db624595e23.jpg" alt="">
-            </div>
-            <div class="desc">
-                <h1 class="desc-h1">40 500 UZS</h1>
-                <p> Zig'ir osh - 0.7</p>
-                <button> + </button>
-
-            </div>
-
-        </div>
-        <div class="box">
-            <div class="image">
-                <img src="static\8f19e70f48fb2a35f72e4db624595e23.jpg" alt="">
-            </div>
-
-            <div class="desc">
-                <h1 class="desc-h1">40 500 UZS</h1>
-                <p> Zig'ir osh - 0.7</p>
-                <button> + </button>
-
-            </div>
-
-        </div>
-        <div class="box">
-            <div class="image">
-                <img src="static\8f19e70f48fb2a35f72e4db624595e23.jpg" alt="">
-            </div>
-
-            <div class="desc">
-                <h1 class="desc-h1">40 500 UZS</h1>
-                <p> Zig'ir osh - 0.7</p>
-                <button> + </button>
-
-            </div>
-
-        </div>
-        <div class="box">
-            <div class="image">
-                <img src="static\8f19e70f48fb2a35f72e4db624595e23.jpg" alt="">
-            </div>
-            <div class="desc">
-                <h1 class="desc-h1">40 500 UZS</h1>
-                <p> Zig'ir osh - 0.7</p>
-                <button> + </button>
-
-            </div>
-
-        </div>
-        <div class="box">
-            <div class="image">
-                <img src="static\8f19e70f48fb2a35f72e4db624595e23.jpg" alt="">
-            </div>
-
-            <div class="desc">
-                <h1 class="desc-h1">40 500 UZS</h1>
-                <p> Zig'ir osh - 0.7</p>
-                <button> + </button>
-
-            </div>
-        </div>
-        <div class="box">
-            <div class="image">
-                <img src="static\8f19e70f48fb2a35f72e4db624595e23.jpg" alt="">
-            </div>
-
-            <div class="desc">
-                <h1 class="desc-h1">40 500 UZS</h1>
-                <p> Zig'ir osh - 0.7</p>
-                <button> + </button>
-
-            </div>
-        </div>
-        <div class="box">
-            <div class="image">
-                <img src="static\8f19e70f48fb2a35f72e4db624595e23.jpg" alt="">
-            </div>
-
-            <div class="desc">
-                <h1 class="desc-h1">40 500 UZS</h1>
-                <p> Zig'ir osh - 0.7</p>
-                <button> + </button>
-
-            </div>
-
-        </div>
-        <h1 id="ichimliklar" class="headers">Ichimliklar</h1>
-        <div class="box">
-            <div class="image">
-                <img src="static\cq3toeb6eisq2rkepi5g.jpg" alt="">
-            </div>
-
-            <div class="desc">
-                <h1 class="desc-h1"> 5 500 UZS</h1>
-                <p> Flavis Anor - 0.5</p>
-                <button> + </button>
-
-            </div>
-
-        </div>
-
-        <div class="box">
-            <div class="image">
-                <img src="static\cq3toeb6eisq2rkepi5g.jpg" alt="">
-            </div>
-
-            <div class="desc">
-                <h1 class="desc-h1"> 5 500 UZS</h1>
-                <p> Flavis Anor - 0.5</p>
-                <button> + </button>
-
-            </div>
-
-        </div>
-        <div class="box">
-            <div class="image">
-                <img src="static\cq3toeb6eisq2rkepi5g.jpg" alt="">
-            </div>
-
-            <div class="desc">
-                <h1 class="desc-h1"> 5 500 UZS</h1>
-                <p> Flavis Anor - 0.5</p>
-                <button> + </button>
-
-            </div>
-
-        </div>
-        <div class="box">
-            <div class="image">
-                <img src="static\cq3toeb6eisq2rkepi5g.jpg" alt="">
-            </div>
-
-            <div class="desc">
-                <h1 class="desc-h1"> 5 500 UZS</h1>
-                <p> Flavis Anor - 0.5</p>
-                <button> + </button>
-
-            </div>
-
-        </div>
-        <div class="box">
-            <div class="image">
-                <img src="static\cq3toeb6eisq2rkepi5g.jpg" alt="">
-            </div>
-
-            <div class="desc">
-                <h1 class="desc-h1"> 5 500 UZS</h1>
-                <p> Flavis Anor - 0.5</p>
-                <button> + </button>
-
-            </div>
-
-        </div>
-        <div class="box">
-            <div class="image">
-                <img src="static\cq3toeb6eisq2rkepi5g.jpg" alt="">
-            </div>
-
-            <div class="desc">
-                <h1 class="desc-h1"> 5 500 UZS</h1>
-                <p> Flavis Anor - 0.5</p>
-                <button> + </button>
-
-            </div>
-
-        </div>
-
+  <div class="grid">
+    <div class="card">
+      <img src="D:\Python\Projects\aralash\Telegram_bot\mebel_bot\images\stol.webp" alt="Plov" />
+      <div class="card-body">
+        <div class="price">1 099 999 UZS</div>
+        <div class="desc">Stol</div>
+        <div class="add-btn">+</div>
+      </div>
     </div>
+
+
+
+
+  </div>
+
+  <div class="menu-title" id="stul">Stullar</div>
+  <div class="grid">
+
+  <div class="card">
+      <img src="D:\Python\Projects\aralash\Telegram_bot\mebel_bot\images\stul.webp" alt="Plov" />
+      <div class="card-body">
+        <div class="price">235 999 UZS</div>
+        <div class="desc">Stullar Komlekt</div>
+        <div class="add-btn">+</div>
+      </div>
+    </div>
+</div>
+
+  <div class="footer">@bot_link</div>
+</body>
+
+  <script>
+    function sendToBot(itemName, price) {
+      const payload = JSON.stringify({
+        name: itemName,
+        price: price
+      });
+
+      if (window.Telegram.WebApp) {
+        Telegram.WebApp.sendData(payload);
+      } else {
+        alert("Telegram WebApp API not available.");
+      }
+    }
+
+    // Автоинициализация Telegram WebApp
+    if (window.Telegram.WebApp) {
+      Telegram.WebApp.ready();
+      Telegram.WebApp.expand();  // делает окно больше
+    }
+  </script>
 </body>
 </html>
