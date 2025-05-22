@@ -112,23 +112,26 @@
     function sendToBot(itemName, price) {
       alert(`Данные перед отправкой: ${itemName}, ${price}`);
       
-      const payload = JSON.stringify({
-        name: itemName,
-        price: price
-      });
-
-      if (window.Telegram.WebApp) {
+      // Проверяем, что WebApp и его методы существуют
+      if (window.Telegram?.WebApp?.sendData) {
+        alert("Telegram.WebApp доступен, отправляю данные...");
+        const payload = JSON.stringify({ name: itemName, price: price });
         Telegram.WebApp.sendData(payload);
+        Telegram.WebApp.close(); // Закрыть веб-приложение после отправки
       } else {
-        alert("Telegram WebApp API not available.");
+        alert("Ошибка: Telegram.WebApp.sendData не найден!");
+        console.error("Telegram.WebApp:", window.Telegram?.WebApp); // Вывести в консоль
       }
     }
 
-    // Автоинициализация Telegram WebApp
-    if (window.Telegram.WebApp) {
-      Telegram.WebApp.ready();
-      Telegram.WebApp.expand();  // делает окно больше
-    }
+  // Инициализация
+  if (window.Telegram?.WebApp) {
+    Telegram.WebApp.ready();
+    Telegram.WebApp.expand();
+    alert("WebApp инициализирован!");
+  } else {
+    alert("Ошибка: Telegram.WebApp не обнаружен!");
+  }
   </script>
 </body>
 </html>
