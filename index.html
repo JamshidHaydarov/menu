@@ -111,6 +111,7 @@
   <script>
     function sendToBot(itemName, price) {
       const payload = JSON.stringify({
+        console.log("Trying to send:", { name: itemName, price: price });
         name: itemName,
         price: price
       });
