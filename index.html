@@ -108,9 +108,8 @@
   <div class="footer">@telegram_bot_link</div>
 
 
-  <script>
+  <script>    
     function sendToBot(itemName, price) {
-      
       // Проверяем, что WebApp и его методы существуют
       if (window.Telegram?.WebApp?.sendData) {
         alert("Telegram.WebApp доступен, отправляю данные...");
@@ -118,8 +117,8 @@
         Telegram.WebApp.sendData(payload);
         Telegram.WebApp.close(); // Закрыть веб-приложение после отправки
       } else {
-        alert("Ошибка: Telegram.WebApp.sendData не найден!");
-        console.error("Telegram.WebApp:", window.Telegram?.WebApp); // Вывести в консоль
+        //alert("Ошибка: Telegram.WebApp.sendData не найден!");
+        alert(`Telegram.WebApp:, ${window.Telegram?.WebApp}`); // Вывести в консоль
       }
     }
 
