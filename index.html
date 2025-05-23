@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mebellar Do'koni</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet" />
-  
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
     body { background-color: #f9f9f9; padding: 16px; }
@@ -40,7 +39,7 @@
     .price { font-weight: bold; color: #000; margin-bottom: 4px; }
     .desc { font-size: 13px; color: #555; margin-bottom: 8px; }
 
-    .add-btn {
+    .add-btn, .send-btn {
       padding: 6px;
       background-color: #d0ffd8;
       border-radius: 8px;
@@ -49,88 +48,125 @@
       font-size: 16px;
       cursor: pointer;
       transition: background-color 0.2s ease;
+      margin-top: 6px;
     }
 
-    .add-btn:hover {
+    .add-btn:hover, .send-btn:hover {
       background-color: #a5f3b1;
     }
 
-    a {
-      text-decoration: none;
-      width: 100%;
-      height: 100%;
+    .counter {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 10px;
+      gap: 10px;
+    }
+
+    .counter button {
+      font-size: 20px;
+      padding: 4px 10px;
+    }
+
+    .counter span {
+      min-width: 30px;
+      text-align: center;
+      font-size: 18px;
     }
 
     .footer { margin-top: 30px; text-align: center; font-size: 14px; color: #777; }
+
+    .btns {
+        border: none;
+    }
   </style>
 </head>
-
 <body>
   <div class="header">Mebellar do'koni</div>
 
   <div class="tabs">
-    <div class="tab"><a href="#stol">Stollar</a> </div>
+    <div class="tab"><a href="#stol">Stollar</a></div>
     <div class="tab"><a href="#stul">Stullar</a></div>
-
   </div>
 
   <div class="menu-title" id="stol">Stollar</div>
-
   <div class="grid">
     <div class="card">
-      <img src=".\static\stol.webp" alt="Plov" />
+      <img src=".\static\stol.webp" alt="Stol" />
       <div class="card-body">
-        <div class="price">1 099 999 UZS</div>
-        <div class="desc">Stol</div>
-        <div class="add-btn" onclick="sendToBot('Stol', '1099999')">+</div>
+        <div class="price" data-price="1099999">1 099 999 UZS</div>
+        <div class="desc" data-name="Stol">Stol</div>
+        <div class="add-btn" onclick="toggleCounter(this)">+</div>
 
+        <div class="counter" style="display: none;">
+          <button onclick="updateCount(this, -1)" class="btns">-</button>
+          <span class="count-value">1</span>
+          <button onclick="updateCount(this, 1)" class="btns">+</button>
+        </div>
+
+        <div class="send-btn" style="display: none;" onclick="sendToBot(this)">📤 Yuborish</div>
       </div>
     </div>
-
-
-
-
   </div>
 
   <div class="menu-title" id="stul">Stullar</div>
   <div class="grid">
-
-  <div class="card">
-      <img src=".\static\stul.webp" alt="Plov" />
+    <div class="card">
+      <img src=".\static\stul.webp" alt="Stul" />
       <div class="card-body">
-        <div class="price">235 999 UZS</div>
-        <div class="desc">Stullar Komlekt</div>
-        <div class="add-btn" onclick="sendToBot('Stul', '235999')">+</div>
+        <div class="price" data-price="235999">235 999 UZS</div>
+        <div class="desc" data-name="Stul">Stullar Komlekt</div>
+        <div class="add-btn" onclick="toggleCounter(this)">+</div>
 
+        <div class="counter" style="display: none;">
+          <button onclick="updateCount(this, -1)" class="btns">-</button>
+          <span class="count-value">1</span>
+          <button onclick="updateCount(this, 1)" class="btns">+</button>
+        </div>
+
+        <div class="send-btn" style="display: none;" onclick="sendToBot(this)">📤 Yuborish</div>
       </div>
     </div>
-</div>
+  </div>
 
   <div class="footer">@telegram_bot_link</div>
 
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <script>    
-    function sendToBot(itemName, price) {
-      // Проверяем, что WebApp и его методы существуют
+  <script>
+    function toggleCounter(btn) {
+      const card = btn.closest(".card-body");
+      card.querySelector(".counter").style.display = "flex";
+      card.querySelector(".send-btn").style.display = "block";
+      btn.style.display = "none";
+    }
+
+    function updateCount(button, delta) {
+      const counter = button.parentElement;
+      const countSpan = counter.querySelector(".count-value");
+      let count = parseInt(countSpan.innerText) + delta;
+      if (count < 1) count = 1;
+      countSpan.innerText = count;
+    }
+
+    function sendToBot(button) {
+      const card = button.closest(".card-body");
+      const name = card.querySelector(".desc").dataset.name;
+      const price = parseInt(card.querySelector(".price").dataset.price);
+      const count = parseInt(card.querySelector(".count-value").innerText);
+      const total = count * price;
+
+      const payload = JSON.stringify({ name, count, price, total });
       if (window.Telegram?.WebApp?.sendData) {
-        alert("Telegram.WebApp доступен, отправляю данные...");
-        const payload = JSON.stringify({ name: itemName, price: price });
         Telegram.WebApp.sendData(payload);
-        Telegram.WebApp.close(); // Закрыть веб-приложение после отправки
+        Telegram.WebApp.close();
       } else {
-        //alert("Ошибка: Telegram.WebApp.sendData не найден!");
-        alert(`Telegram.WebApp:, ${window.Telegram?.WebApp}`); // Вывести в консоль
+        alert("Telegram WebApp not found.");
       }
     }
 
-  // Инициализация
-  if (window.Telegram?.WebApp) {
-    Telegram.WebApp.ready();
-    Telegram.WebApp.expand();
-    alert("WebApp инициализирован!");
-  } else {
-    alert("Ошибка: Telegram.WebApp не обнаружен!");
-  }
+    if (window.Telegram?.WebApp) {
+      Telegram.WebApp.ready();
+      Telegram.WebApp.expand();
+    }
   </script>
 </body>
 </html>
